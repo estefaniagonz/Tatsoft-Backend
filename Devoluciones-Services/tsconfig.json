@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "target": "ES2020", 
+      "module": "CommonJS", 
+      "outDir": "./dist", 
+      "rootDir": "./", 
+      "strict": true, 
+      "esModuleInterop": true, 
+      "moduleResolution": "node", 
+      "skipLibCheck": true, 
+      "baseUrl": "./", 
+      "paths": {
+        "@controllers/*": ["controllers/*"],
+        "@routes/*": ["routes/*"],
+        "@services/*": ["services/*"]
+      }
+    },
+    "include": ["**/*.ts"], 
+    "exclude": ["node_modules", "dist"]
+  }
+  
