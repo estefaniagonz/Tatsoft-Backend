@@ -32,6 +32,8 @@ JOIN productos p ON p.id_producto = v.id_venta;
 
 select * from detalle_ventas;
 select * from ventas;
+
+// inserciones de prueba
 INSERT INTO ventas (fecha_entrega, total, estado)
 VALUES 
 ('2024-11-20', 500.00, 'PENDIENTE'),
