@@ -1,19 +1,11 @@
-CREATE DATABASE IF NOT EXISTS acumulados;
-USE acumulados;
+Create database ventas_acumulados;
+use ventas_acumulados;
 
 CREATE TABLE ventas (
     id_venta INT AUTO_INCREMENT PRIMARY KEY,
     fecha_entrega DATE NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
     estado ENUM('PENDIENTE', 'VERIFICADO', 'RECHAZADO') DEFAULT 'PENDIENTE'
-);
-
-CREATE TABLE devoluciones (
-    id_devolucion INT AUTO_INCREMENT PRIMARY KEY,
-    fecha_devolucion DATE NOT NULL,
-    motivo VARCHAR(255) NOT NULL,
-    total DECIMAL(10, 2) NOT NULL,
-    estado ENUM('PENDIENTE', 'APROBADA', 'RECHAZADA') DEFAULT 'PENDIENTE'
 );
 
 CREATE TABLE productos (
@@ -24,7 +16,6 @@ CREATE TABLE productos (
   cantidad_ingreso INT NOT NULL,
   inventario INT NOT NULL
 );
-
 
 CREATE VIEW detalle_ventas AS
 SELECT v.id_venta,
@@ -40,26 +31,10 @@ FROM ventas v
 JOIN productos p ON p.id_producto = v.id_venta;  
 
 select * from detalle_ventas;
+select * from ventas;
+INSERT INTO ventas (fecha_entrega, total, estado)
+VALUES 
+('2024-11-20', 500.00, 'PENDIENTE'),
+('2024-11-21', 1200.50, 'VERIFICADO'),
+('2024-12-12', 300.25, 'RECHAZADO');
 
-
-CREATE VIEW detalles_devoluciones AS
-SELECT 
-    d.id_devolucion,
-    d.fecha_devolucion,
-    d.motivo,
-    d.total AS total_devolucion,
-    d.estado AS estado_devolucion,
-    p.id_producto,
-    p.nombre_producto,
-    p.precio,
-    p.descripcion
-FROM 
-    devoluciones d
-JOIN 
-    productos p ON d.id_producto = p.id_producto;
-    
-
-
-
- 
-    

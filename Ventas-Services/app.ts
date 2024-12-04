@@ -24,7 +24,7 @@ app.use(
 
 // falta el filtro de buscar por nombre de colaborador
 dotenv.config();
-const port = process.env.PORT || 10101;
+const port = process.env.PORT || 10102;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
