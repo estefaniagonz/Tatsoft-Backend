@@ -18,7 +18,7 @@ CREATE TABLE productos (
   inventario INT NOT NULL
 );
 
-
+// inserciones de prueba
 INSERT INTO devoluciones (fecha_devolucion, motivo, total, estado)
 VALUES 
 ('2024-11-21', 'Producto defectuoso', 150.00, 'APROBADA'),
