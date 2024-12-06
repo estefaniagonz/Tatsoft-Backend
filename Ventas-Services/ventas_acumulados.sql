@@ -26,5 +26,6 @@ SELECT v.id_venta,
        1 AS cantidad,  
        (p.precio * 1) AS subtotal  
 FROM ventas v
-JOIN productos p ON p.id_producto = v.id_venta;
+JOIN productos p ON p.id_producto = v.id_venta;  
+
 
