@@ -23,12 +23,6 @@ export class VentasRepository {
     return rows.length > 0 ? rows[0] : null;
   }
 
-  async buscarPorEstado(estado: string): Promise<Venta[]> {
-    const query = `SELECT * FROM ventas WHERE LOWER(estado) = LOWER(?)`;
-    const [rows]: [Venta[], any] = await pool.execute(query, [estado]);
-    return rows;
-  }
-
   async buscarTodasLasVentas(): Promise<Venta[]> {
     const query = `
       SELECT * FROM ventas;
@@ -56,12 +50,11 @@ export class VentasRepository {
   async obtenerDetallesVenta(id_venta: number): Promise<any[]> {
     try {
       const query = `
-        SELECT v.id_venta, v.fecha_entrega, v.total, v.estado, 
-               p.id_producto, p.nombre_producto, p.precio, 
-               1 AS cantidad, (p.precio * 1) AS subtotal
-        FROM ventas v
-        JOIN productos p ON 1 = 1
-        WHERE v.id_venta = ?
+        SELECT id_venta, fecha_entrega, total, 
+               id_producto, nombre_producto, precio, 
+               cantidad, subtotal
+        FROM detalle_ventas
+        WHERE id_venta = ?
       `;
       const [rows]: [any[], any] = await pool.execute(query, [id_venta]);
       return rows;

@@ -5,12 +5,12 @@ import { ObtenerId } from "../services/ObtenerIdServices";
 const validatorId = [
     param("id_devolucion")
       .isInt({ min: 1 })
-      .withMessage("El ID de la venta debe ser un número entero mayor a 0")
+      .withMessage("El ID de la devolución debe ser un número entero mayor a 0")
       .bail()
       .custom(async (value) => {
         const venta = await ObtenerId(Number(value));
         if (!venta) {
-          throw new Error("La venta no existe");
+          throw new Error("La devolución no existe");
         }
       }),
   ];

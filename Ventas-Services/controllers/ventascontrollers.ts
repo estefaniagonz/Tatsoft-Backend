@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { obtenerPorIdVentas } from "../services/ObtenerPorId";
 import { obtenerTodasLasVentas } from "../services/ObtenerTodaslasVentas";
-import { obtenerVentasPorEstado } from "../services/filtroEstado";
 import { obtenerPorFecha } from "../services/filtroFecha";
 import { obtenerDetalles } from "../services/obtenerDetalles";
 import { obtenerPorMonto } from "../services/filtroMonto";
@@ -29,27 +28,6 @@ export class VentasController {
       res.status(500).json({ error: "Error al obtener venta por ID" });
     }
   }
-
-  async obtenerPorEstado(req: Request, res: Response): Promise<void> {
-    try {
-      const { estado } = req.query;
-      if (!estado) {
-        res.status(400).json({ error: "El estado es requerido" });
-        return;
-      }
-
-      const ventas = await obtenerVentasPorEstado(estado as string);
-      if (ventas.length === 0) {
-        res.status(404).json({ message: "No se encontraron ventas con este estado" });
-        return;
-      }
-
-      res.status(200).json(ventas);
-    } catch (error) {
-      res.status(500).json({ error: "Error al obtener ventas por estado" });
-    }
-  }
-
   async obtenerPorFecha(req: Request, res: Response): Promise<void> {
     try {
       const { fecha_entrega } = req.query;

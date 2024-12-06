@@ -5,6 +5,5 @@ export interface Venta extends RowDataPacket {
     despachos_id_despacho: number | null;
     fecha_entrega: Date;
     total: number;
-    estado: 'PENDIENTE' | 'VERIFICADO' | 'RECHAZADO' | 'CANCELADA';
 }
 

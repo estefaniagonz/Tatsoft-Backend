@@ -8,7 +8,7 @@ export async function obtenerDetalles(id_devolucion: number): Promise<Devolucion
     if (!devolucion) {
         return null; 
     }
-    const detallesDevolucion = await repository.DetalleDevolucion(id_devolucion);
+    const detallesDevolucion = await repository.detalleDevolucion(id_devolucion);
     return detallesDevolucion.length === 0 ? [] : detallesDevolucion;
 }
 

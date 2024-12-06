@@ -6,7 +6,6 @@ import obtenerTodasRoutes from "./routes/ObtenerTodasRoutes";
 import obtenerPorIdRoutes from "./routes/ObtenerPorIdRoutes";
 import obtenerFechaRoutes from "./routes/ObtenerFechaRoutes";
 import obtenerMontoRoutes from "./routes/ObtenerMontoRoutes";
-import obtenerEstadoRoutes from "./routes/ObtenerEstadoRoutes";
 import obtenerDetallesRoutes from "./routes/ObtenerDetallesRoutes";
 
 const app = express();
@@ -18,7 +17,6 @@ app.use(
   "/venta",
   obtenerFechaRoutes,
   obtenerMontoRoutes,
-  obtenerEstadoRoutes,
   obtenerDetallesRoutes
 );
 

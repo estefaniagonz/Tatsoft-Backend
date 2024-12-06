@@ -11,7 +11,7 @@ const validatorDetalles = [
         const repository = new VentasRepository();
         const venta = await repository.buscarPorId(Number(value));
         if (!venta) {
-            throw new Error("La venta no existe");
+            throw new Error("La venta no tiene detalles asociados");
         }
         return true;
     })
