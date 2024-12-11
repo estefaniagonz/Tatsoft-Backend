@@ -11,7 +11,7 @@ const validatorDetalles = [
         const repository = new DevolucionRepository();
         const venta = await repository.buscarId(Number(value));
         if (!venta) {
-            throw new Error("La venta no existe");
+            throw new Error("La devolución no existe");
         }
         return true;
     })

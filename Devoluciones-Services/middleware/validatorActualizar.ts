@@ -2,12 +2,6 @@ import { body, param, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 
 const validatorActualizar = [
-  param("id_devolucion")
-    .notEmpty()
-    .withMessage("El ID de la devolución es obligatorio.")
-    .isInt({ min: 1 })
-    .withMessage("El ID de la devolución debe ser un número entero positivo."),
-
   body("fecha_devolucion")
     .optional()
     .isISO8601()
@@ -23,12 +17,12 @@ const validatorActualizar = [
 
   body("total")
     .optional()
-    .isFloat({ min: 0 })
+    .isFloat({ min: 1 })
     .withMessage("El total debe ser un número positivo."),
 
   body("valor_devolucion")
     .optional()
-    .isFloat({ min: 0 })
+    .isFloat({ min: 1 })
     .withMessage("El valor de devolución debe ser un número positivo."),
 ];
 

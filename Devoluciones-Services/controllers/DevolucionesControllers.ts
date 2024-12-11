@@ -4,7 +4,9 @@ import { obtenerDetalles } from "../services/ObtenerDetalleServices";
 import { obtenerFecha } from "../services/filtroFechaServices";
 import { obtenerTodasDevoluciones } from "../services/ObtenerTodasServices";
 import { buscarMonto } from "../services/filtroMontoServices";
+import { DevolucionRepository } from "../repositories/DevolucionesRepository";
 
+const devolucionesRepository = new DevolucionRepository();
 
 export class DevolucionController {
   async obtenerDevoluciones(req: Request, res: Response) {
@@ -17,22 +19,61 @@ export class DevolucionController {
         .json({ error: "Error al obtener todas las devoluciones" });
     }
   }
-
-
-  async crearDevolucion (req: Request, res:Response): Promise<void>{
-    const nuevaDevolucion = req.body
-    res.status (201).json({mensaje: "Devolución creada correctamente", data:nuevaDevolucion})
+  async crearDevolucion(req: Request, res: Response): Promise<void> {
+    try {
+      const nuevaDevolucion = req.body;
+      const devolucionCreada = await devolucionesRepository.crearDevolucion(nuevaDevolucion);
+      res.status(201).json({
+        mensaje: "Devolución creada correctamente",
+        data: devolucionCreada,
+      });
+    } catch (error) {
+      console.error("Error al crear devolución:", error);
+      res.status(500).json({
+        error: "No se pudo crear la devolución. Por favor, intente de nuevo.",
+      });
+    }
   }
 
-  async actualizarDevolucion (req:Request, res:Response){
-    const {id_devolucion} = req.params;
-    const {datos_actualizados}= req.body
-    res.status(200).json({ message: `Devolución ${id_devolucion} actualizada correctamente`, data: datos_actualizados });
-  }
-
-  async EliminarDevolucion(req: Request, res: Response) {
+  async actualizarDevolucion(req: Request, res: Response): Promise<void> {
     const { id_devolucion } = req.params;
-    res.status(200).json({ message: `Devolución ${id_devolucion} eliminada correctamente` });
+    const { datos_actualizados } = req.body;
+  
+    try {
+      const devolucionActualizada = await devolucionesRepository.actualizarDevolucion(
+        parseInt(id_devolucion, 10), 
+        datos_actualizados
+      );
+  
+      if (!devolucionActualizada) {
+        res.status(404).json({ error: "Devolución no encontrada para actualizar." });
+        return;
+      }
+  
+      res.status(200).json({
+        message: `Devolución ${id_devolucion} actualizada correctamente`,
+        data: devolucionActualizada,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Error al actualizar la devolución" });
+    }
+  }
+
+  async EliminarDevolucion(req: Request, res: Response): Promise<void> {
+    const { id_devolucion } = req.params;
+  
+    try {
+      const resultado = await devolucionesRepository.borrarDevolucion(parseInt(id_devolucion, 10));
+  
+      if (!resultado) {
+        res.status(404).json({ error: "Devolución no encontrada" });
+        return;
+      }
+  
+      res.status(200).json({ message: `Devolución ${id_devolucion} eliminada correctamente` });
+    } catch (error) {
+      res.status(500).json({ error: "Error al eliminar la devolución" });
+    }
   }
   
   async ObtenerId(req: Request, res: Response): Promise<void> {
